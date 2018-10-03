@@ -1,28 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using GrandHotelNirvana.Models;
 using System;
-using System.Net.Http;
-using System.Net;
+using System.Collections.Generic;
 
 namespace GrandHotelNirvana
 {
+    [Route("api/[controller]")]
     public class UtilisateursController : Controller
     {
         Compte cpte = new Compte();
-        [HttpPost]
-        public void CreateUser(Utilisateur user, string role)
+
+        [HttpGet]
+        public IEnumerable<string> Get()
         {
-            if (ModelState.IsValid)
-            {
-                // Do something with the product (not shown).
-                cpte.AjouterUtilisateur(user.Civilite, user.Nom, user.Prenom, user.Email, user.MotDePasse, role);
-                
-            }
-            else
-            {
-                
-            }
-           
+            return new string[] { "value1", "value2" };
+        }
+
+
+        [HttpPost]
+        public void CreateUser([FromBody]string civilite, string nom, string prenom, string email, string motDePasse, string role)
+        {
+            cpte.AjouterUtilisateur(civilite, nom, prenom, email, motDePasse, role);
         }
         
     }

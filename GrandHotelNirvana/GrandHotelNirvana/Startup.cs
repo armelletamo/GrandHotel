@@ -48,8 +48,13 @@ namespace GrandHotelNirvana
                 c.RoutePrefix = string.Empty;
             });
 
-            app.UseMvc();
-           
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Utilisateurs}/{action=Get}");
+            });
+
         }
     }
 }

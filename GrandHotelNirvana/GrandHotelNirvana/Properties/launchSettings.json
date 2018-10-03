@@ -11,7 +11,8 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/Utilisateurs",
+        //CreateUser?civilite=mme&&nom=youmbi&&prenom=armelle&&email=armelletamo@test.fr&&motDePasse=armelletamo&&role=client",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -19,7 +20,9 @@
     "GrandHotelNirvana": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/Utilisateurs",
+        ///CreateUser?civilite=mme&&nom=youmbi&&prenom=armelle&&email=armelletamo@test.fr&&motDePasse=armelletamo&&role=client",
+
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
