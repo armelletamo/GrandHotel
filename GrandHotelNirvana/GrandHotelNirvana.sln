@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27428.2027
+VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandHotelNirvana", "GrandHotelNirvana\GrandHotelNirvana.csproj", "{71015099-6BA7-4A2F-B305-32F11DC27BCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrandHotelNirvana", "GrandHotelNirvana\GrandHotelNirvana.csproj", "{A49ECB81-B31F-4194-A3B8-C4BE0B9813F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{71015099-6BA7-4A2F-B305-32F11DC27BCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71015099-6BA7-4A2F-B305-32F11DC27BCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71015099-6BA7-4A2F-B305-32F11DC27BCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71015099-6BA7-4A2F-B305-32F11DC27BCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A49ECB81-B31F-4194-A3B8-C4BE0B9813F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A49ECB81-B31F-4194-A3B8-C4BE0B9813F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A49ECB81-B31F-4194-A3B8-C4BE0B9813F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A49ECB81-B31F-4194-A3B8-C4BE0B9813F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {CBABFFDA-7E46-4C14-BFCA-8C51C68EBC18}
+		SolutionGuid = {7CCCF206-DCBC-4441-996B-9270F560FE6E}
 	EndGlobalSection
 EndGlobal
