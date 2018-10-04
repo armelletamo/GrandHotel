@@ -10,6 +10,6 @@ namespace GrandHotelNirvana
     {
         List<Chambre> ListeDeChambre(Reservation reservation);
         Chambre DetailDeChambre(int id);
-        int AjouterReservation(int id);
+        Task<int> AjouterReservation(Reservation reserv);
     }
 }

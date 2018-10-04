@@ -46,6 +46,7 @@ namespace GrandHotelNirvana
                         .Include(x => x.NumChambreNavigation)
                         .Where(x => x.Jour == reservation.Jour)
                         .Select(x => x.NumChambreNavigation)
+                        .Where(x=>x.NbLits==reservation.NbPersonnes)
                         .ToList();
                 }
                 chambredispo = chambre.Except(chambrereserve).ToList();
@@ -73,7 +74,7 @@ namespace GrandHotelNirvana
             return chb;
         }
 
-        public async Task<int> AjouterReservation(Reservation  reserv)
+        public async Task<int> AjouterReservation(Reservation reserv)
         {
             int i = 0;
             try
@@ -88,5 +89,7 @@ namespace GrandHotelNirvana
             }
            return i;
         }
+
+       
     }
 }
