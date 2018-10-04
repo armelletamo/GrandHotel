@@ -14,16 +14,23 @@ namespace GrandHotelNirvana
         Utilisateur newUser = new Utilisateur();
         private bool alreadyDisposed = false;
 
-        public  async Task<int> AjouterUtilisateur(Utilisateur user)
+        public async Task<int> AjouterUtilisateur(Utilisateur user)
         {
+
             int id = 0;
+            int roleid = 0;
             try
             {
                 bool exist = grandhotel.Utilisateur.Any(x => x.Email == user.Email);
                 if (!exist)
                 {
+
                     string motDePasseEncode = EncodeMD5(user.MotDePasse);
-                    int roleid = grandhotel.Role.Where(x => x.Nom == user.roles).Select(x => x.Id).FirstOrDefault();
+                    if (!user.Email.Contains("grandhotel"))
+                        roleid = grandhotel.Role.Where(x => x.Nom == "client").Select(x => x.Id).FirstOrDefault();
+                    else
+                        roleid = grandhotel.Role.Where(x => x.Nom == "administrateur").Select(x => x.Id).FirstOrDefault();
+
                     user.MotDePasse = motDePasseEncode;
                     user.RoleId = roleid;
                     grandhotel.Utilisateur.Add(user);
@@ -34,14 +41,28 @@ namespace GrandHotelNirvana
                 {
                     return id;
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                
+
             }
-             id =  user.Id;
-            return id ;
+            id = user.Id;
+            return id;
+        }
+
+        public async Task<int> ChangerMotDePasse(string email, string mdp)
+        {
+            int sucess = 0;
+            newUser = grandhotel.Utilisateur.Where(x => x.Email == email).FirstOrDefault();
+            if (newUser!=null)
+            {
+                string motDePasseEncode = EncodeMD5(mdp);               
+                newUser.MotDePasse = motDePasseEncode;
+                await grandhotel.SaveChangesAsync();
+                sucess = 1;
+            }
+            return sucess;
         }
 
         private string EncodeMD5(string motDePasse)
@@ -59,13 +80,13 @@ namespace GrandHotelNirvana
 
         public Utilisateur Authentifier(string email, string motDePasse)
         {
-            
+
             try
             {
                 string motDePasseEncode = EncodeMD5(motDePasse);
-                newUser= grandhotel.Utilisateur.FirstOrDefault(u => u.Email == email && u.MotDePasse == motDePasseEncode);
+                newUser = grandhotel.Utilisateur.FirstOrDefault(u => u.Email == email && u.MotDePasse == motDePasseEncode);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 newUser = null;
             }
@@ -95,6 +116,6 @@ namespace GrandHotelNirvana
             return grandhotel.Utilisateur.FirstOrDefault(u => u.Id == id);
         }
 
-        
+
     }
 }

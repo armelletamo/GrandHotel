@@ -19,8 +19,6 @@ namespace GrandHotelNirvana.Models
         public string MotDePasse { get; set; }
         public int RoleId { get; set; }
         public int? ClientId { get; set; }
-        [NotMapped]
-         public string roles { get; set; }
 
         public Role Role { get; set; }
         public ICollection<Client> Client { get; set; }
