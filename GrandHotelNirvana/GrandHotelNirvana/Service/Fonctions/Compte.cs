@@ -14,28 +14,34 @@ namespace GrandHotelNirvana
         Utilisateur newUser = new Utilisateur();
         private bool alreadyDisposed = false;
 
-        public int AjouterUtilisateur(string civilite, string nom, string prenom, string email, string motDePasse, string role)
+        public  async Task<int> AjouterUtilisateur(Utilisateur user)
         {
+            int id = 0;
             try
             {
-                string motDePasseEncode = EncodeMD5(motDePasse);
-                int roleid = grandhotel.Role.Where(x => x.Nom == role).Select(x => x.Id).FirstOrDefault();
+                bool exist = grandhotel.Utilisateur.Any(x => x.Email == user.Email);
+                if (!exist)
+                {
+                    string motDePasseEncode = EncodeMD5(user.MotDePasse);
+                    int roleid = grandhotel.Role.Where(x => x.Nom == user.roles).Select(x => x.Id).FirstOrDefault();
+                    user.MotDePasse = motDePasseEncode;
+                    user.RoleId = roleid;
+                    grandhotel.Utilisateur.Add(user);
+                    await grandhotel.SaveChangesAsync();
 
-                newUser.Civilite = civilite;
-                newUser.Nom = nom;
-                newUser.Prenom = prenom;
-                newUser.Email = email;
-                newUser.MotDePasse = motDePasseEncode;
-                newUser.RoleId = roleid;
-                grandhotel.Utilisateur.Add(newUser);
-                grandhotel.SaveChanges();
+                }
+                else
+                {
+                    return id;
+                }
+                
             }
             catch(Exception ex)
             {
                 
             }
-            
-            return newUser.Id;
+             id =  user.Id;
+            return id ;
         }
 
         private string EncodeMD5(string motDePasse)

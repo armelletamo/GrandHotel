@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using GrandHotelNirvana.Models;
 
 namespace GrandHotelNirvana
 {
@@ -9,17 +10,11 @@ namespace GrandHotelNirvana
     {
         Compte cpte = new Compte();
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-
+        [Route("create-user")]
         [HttpPost]
-        public void CreateUser([FromBody]string civilite, string nom, string prenom, string email, string motDePasse, string role)
+        public async void CreateUser(Utilisateur user)
         {
-            cpte.AjouterUtilisateur(civilite, nom, prenom, email, motDePasse, role);
+           await cpte.AjouterUtilisateur(user);
         }
         
     }

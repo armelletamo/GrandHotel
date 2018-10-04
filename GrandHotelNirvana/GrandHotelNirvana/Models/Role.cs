@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GrandHotelNirvana.Models
 {
-    public class Role
+    public partial class Role
     {
+        public Role()
+        {
+            Utilisateur = new HashSet<Utilisateur>();
+        }
+
         public int Id { get; set; }
-        [Required]
         public string Nom { get; set; }
-        
+
+        public ICollection<Utilisateur> Utilisateur { get; set; }
     }
 }

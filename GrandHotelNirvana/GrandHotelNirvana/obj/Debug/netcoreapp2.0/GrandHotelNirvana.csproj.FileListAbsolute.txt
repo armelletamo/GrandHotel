@@ -9,7 +9,6 @@ C:\Users\armelle.youmbi\Desktop\GrandHotelNirvana\GrandHotelNirvana\bin\Debug\ne
 C:\Users\armelle.youmbi\Desktop\GrandHotelNirvana\GrandHotelNirvana\obj\Debug\netcoreapp2.0\GrandHotelNirvana.dll
 C:\Users\armelle.youmbi\Desktop\GrandHotelNirvana\GrandHotelNirvana\obj\Debug\netcoreapp2.0\GrandHotelNirvana.pdb
 C:\Users\armelle.youmbi\Desktop\GrandHotelNirvana\GrandHotelNirvana\obj\Debug\netcoreapp2.0\GrandHotelNirvana.csprojAssemblyReference.cache
-C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\obj\Debug\netcoreapp2.0\GrandHotelNirvana.csprojAssemblyReference.cache
 C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\obj\Debug\netcoreapp2.0\GrandHotelNirvana.csproj.CoreCompileInputs.cache
 C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\obj\Debug\netcoreapp2.0\GrandHotelNirvana.AssemblyInfoInputs.cache
 C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\obj\Debug\netcoreapp2.0\GrandHotelNirvana.AssemblyInfo.cs
@@ -20,3 +19,5 @@ C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\b
 C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\bin\Debug\netcoreapp2.0\GrandHotelNirvana.runtimeconfig.dev.json
 C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\bin\Debug\netcoreapp2.0\GrandHotelNirvana.dll
 C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\bin\Debug\netcoreapp2.0\GrandHotelNirvana.pdb
+C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\bin\Debug\netcoreapp2.0\GrandHotelNirvana.xml
+C:\Users\armelle.youmbi\Desktop\GrandHotel\GrandHotelNirvana\GrandHotelNirvana\obj\Debug\netcoreapp2.0\GrandHotelNirvana.csprojAssemblyReference.cache

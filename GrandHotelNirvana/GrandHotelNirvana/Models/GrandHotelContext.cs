@@ -24,11 +24,11 @@ namespace GrandHotelNirvana.Models
         public virtual DbSet<LigneFacture> LigneFacture { get; set; }
         public virtual DbSet<ModePaiement> ModePaiement { get; set; }
         public virtual DbSet<Reservation> Reservation { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Tarif> Tarif { get; set; }
         public virtual DbSet<TarifChambre> TarifChambre { get; set; }
         public virtual DbSet<Telephone> Telephone { get; set; }
         public virtual DbSet<Utilisateur> Utilisateur { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -94,25 +94,20 @@ namespace GrandHotelNirvana.Models
 
             modelBuilder.Entity<Client>(entity =>
             {
-                entity.Property(e => e.Civilite)
-                    .IsRequired()
-                    .HasMaxLength(4)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Nom)
-                    .IsRequired()
-                    .HasMaxLength(40);
-
-                entity.Property(e => e.Prenom)
-                    .IsRequired()
-                    .HasMaxLength(40);
+                entity.HasIndex(e => e.UtilisateurId);
 
                 entity.Property(e => e.Societe).HasMaxLength(100);
+
+                entity.HasOne(d => d.Utilisateur)
+                    .WithMany(p => p.Client)
+                    .HasForeignKey(d => d.UtilisateurId);
             });
 
             modelBuilder.Entity<Email>(entity =>
             {
                 entity.HasKey(e => e.Adresse);
+
+                entity.HasIndex(e => e.IdClient);
 
                 entity.Property(e => e.Adresse)
                     .HasMaxLength(40)
@@ -128,6 +123,10 @@ namespace GrandHotelNirvana.Models
 
             modelBuilder.Entity<Facture>(entity =>
             {
+                entity.HasIndex(e => e.CodeModePaiement);
+
+                entity.HasIndex(e => e.IdClient);
+
                 entity.Property(e => e.CodeModePaiement)
                     .IsRequired()
                     .HasMaxLength(3)
@@ -194,6 +193,8 @@ namespace GrandHotelNirvana.Models
                 entity.HasIndex(e => e.IdClient)
                     .HasName("IDX_ReservationClient_FK");
 
+                entity.HasIndex(e => e.Jour);
+
                 entity.Property(e => e.Jour).HasColumnType("date");
 
                 entity.Property(e => e.HeureArrivee).HasDefaultValueSql("((17))");
@@ -217,6 +218,11 @@ namespace GrandHotelNirvana.Models
                     .HasConstraintName("FK_Reservation_Chambre");
             });
 
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.Property(e => e.Nom).IsRequired();
+            });
+
             modelBuilder.Entity<Tarif>(entity =>
             {
                 entity.HasKey(e => e.Code);
@@ -234,6 +240,8 @@ namespace GrandHotelNirvana.Models
             modelBuilder.Entity<TarifChambre>(entity =>
             {
                 entity.HasKey(e => new { e.NumChambre, e.CodeTarif });
+
+                entity.HasIndex(e => e.CodeTarif);
 
                 entity.Property(e => e.CodeTarif)
                     .HasMaxLength(20)
@@ -256,6 +264,8 @@ namespace GrandHotelNirvana.Models
             {
                 entity.HasKey(e => e.Numero);
 
+                entity.HasIndex(e => e.IdClient);
+
                 entity.Property(e => e.Numero)
                     .HasMaxLength(12)
                     .IsUnicode(false)
@@ -271,6 +281,27 @@ namespace GrandHotelNirvana.Models
                     .HasForeignKey(d => d.IdClient)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Telephone_Client");
+            });
+
+            modelBuilder.Entity<Utilisateur>(entity =>
+            {
+                entity.HasIndex(e => e.RoleId);
+
+                entity.Property(e => e.Civilite).IsRequired();
+
+                entity.Property(e => e.ClientId).HasColumnName("clientId");
+
+                entity.Property(e => e.Email).IsRequired();
+
+                entity.Property(e => e.MotDePasse).IsRequired();
+
+                entity.Property(e => e.Nom).IsRequired();
+
+                entity.Property(e => e.Prenom).IsRequired();
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.Utilisateur)
+                    .HasForeignKey(d => d.RoleId);
             });
         }
     }

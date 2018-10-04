@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,10 @@ namespace GrandHotelNirvana
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "GrandHotelNirvana", Version = "v1" });
+
+                var xmlFile = "GrandHotelNirvana.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -45,15 +50,10 @@ namespace GrandHotelNirvana
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "GrandHotelNirvana V1");
-                c.RoutePrefix = string.Empty;
+                
             });
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Utilisateurs}/{action=Get}");
-            });
+            app.UseMvc();
 
         }
     }
