@@ -8,7 +8,7 @@ namespace GrandHotelNirvana
 {
     public interface IReservation :IDisposable
     {
-        List<Chambre> ListeDeChambre(Reservation reservation);
+        List<TarifChambre> ListeDeChambre(Reservation reservation);
         Chambre DetailDeChambre(int id);
         Task<int> AjouterReservation(Reservation reserv);
     }

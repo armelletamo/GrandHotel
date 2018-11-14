@@ -15,12 +15,12 @@ namespace GrandHotelNirvana.Controllers
     public class ReservationsController : Controller
     {
         Reservations reservations = new Reservations();
-        List<Chambre> ChambreLibre = new List<Chambre>();
+        List<TarifChambre> ChambreLibre = new List<TarifChambre>();
         Chambre chb = new Chambre();
 
         [Route("Available-Rooms")]
         [HttpGet]
-        public List<Chambre> ListOfRoom(Reservation reserv)
+        public List<TarifChambre> ListOfRoom(Reservation reserv)
         {
             if (ModelState.IsValid)
             {

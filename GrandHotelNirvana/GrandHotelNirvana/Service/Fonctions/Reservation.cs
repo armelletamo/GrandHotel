@@ -32,31 +32,44 @@ namespace GrandHotelNirvana
             alreadyDisposed = true;
         }
 
-        public List<Chambre> ListeDeChambre(Reservation reservation)
+        public List<TarifChambre> ListeDeChambre(Reservation reservation)
         {
-            List<Chambre> chambre = new List<Chambre>();
+            DateTime d = DateTime.Now;
+
+            IQueryable<Chambre> chambre;
             List<Chambre> chambrereserve = new List<Chambre>();
             List<Chambre> chambredispo = new List<Chambre>();
+            List<TarifChambre> tarifchambre = new List<TarifChambre>();
             try
             {
-                chambre = grandhotel.Chambre.Where(x => x.NbLits == reservation.NbPersonnes).ToList();
+                chambre = grandhotel.Chambre.Where(x => x.NbLits == reservation.NbPersonnes);
                 if (grandhotel.Reservation.Any(x => x.Jour == reservation.Jour))
                 {
                     chambrereserve = grandhotel.Reservation
                         .Include(x => x.NumChambreNavigation)
                         .Where(x => x.Jour == reservation.Jour)
                         .Select(x => x.NumChambreNavigation)
-                        .Where(x=>x.NbLits==reservation.NbPersonnes)
-                        .ToList();
+                        .Where(x => x.NbLits == reservation.NbPersonnes).ToList();
                 }
-                chambredispo = chambre.Except(chambrereserve).ToList();
+                chambredispo = chambre.Except(chambrereserve).ToList();               
+
+                 var Tarifchambre = from c in chambredispo
+                                   join tf in grandhotel.TarifChambre on c.Numero equals tf.NumChambre
+                                   join t in grandhotel.Tarif on tf.CodeTarif equals t.Code
+                                   where tf.CodeTarif.Contains(d.Year.ToString())
+                                   select tf;
+                tarifchambre = Tarifchambre.ToList();
+
+
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
             
-            return chambredispo;
+            return tarifchambre;
+
         }
 
         public Chambre DetailDeChambre(int numero)
@@ -67,7 +80,7 @@ namespace GrandHotelNirvana
                 short num = (short)numero;
                 chb = grandhotel.Chambre.Where(x => x.Numero == num).FirstOrDefault();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -83,11 +96,11 @@ namespace GrandHotelNirvana
                 await grandhotel.SaveChangesAsync();
                 i = 1;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
-           return i;
+            return i;
         }
 
        
