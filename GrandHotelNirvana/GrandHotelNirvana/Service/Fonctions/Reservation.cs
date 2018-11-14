@@ -56,7 +56,7 @@ namespace GrandHotelNirvana
                  var Tarifchambre = from c in chambredispo
                                    join tf in grandhotel.TarifChambre on c.Numero equals tf.NumChambre
                                    join t in grandhotel.Tarif on tf.CodeTarif equals t.Code
-                                   where tf.CodeTarif.Contains(d.Year.ToString())
+                                   where tf.CodeTarif.Contains(reservation.Jour.Year.ToString())
                                    select tf;
                 tarifchambre = Tarifchambre.ToList();
 
