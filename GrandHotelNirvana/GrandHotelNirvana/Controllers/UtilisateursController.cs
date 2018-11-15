@@ -8,7 +8,7 @@ namespace GrandHotelNirvana
     [Route("api/[controller]")]
     public class UtilisateursController : Controller
     {
-        Compte cpte = new Compte();
+        CompteService cpte = new CompteService();
 
         [Route("create-user")]
         [HttpPost]

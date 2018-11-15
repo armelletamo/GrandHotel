@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GrandHotelNirvana
 {
-    public interface IReservation :IDisposable
+    public interface IReservationService : IDisposable
     {
-        List<TarifChambre> ListeDeChambre(Reservation reservation);
-        Chambre DetailDeChambre(int id);
+        List<ChambreVM> ListeDeChambre(Reservation reservation);
+        ChambreVM DetailDeChambre(int id);
         Task<int> AjouterReservation(Reservation reserv);
     }
 }

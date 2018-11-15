@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace GrandHotelNirvana
 {
-    public interface ICompte : IDisposable
+    public interface ICompteService : IDisposable
     {
 
          Task<int> AjouterUtilisateur(Utilisateur user);

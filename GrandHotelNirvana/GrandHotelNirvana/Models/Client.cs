@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GrandHotelNirvana.Models
 {
@@ -17,6 +19,9 @@ namespace GrandHotelNirvana.Models
         public bool CarteFidelite { get; set; }
         public string Societe { get; set; }
         public int UtilisateurId { get; set; }
+        [NotMapped]
+        [DisplayName("Email")]
+        public string EmailUtilisateur { get; set; }
 
         public Utilisateur Utilisateur { get; set; }
         public Adresse Adresse { get; set; }

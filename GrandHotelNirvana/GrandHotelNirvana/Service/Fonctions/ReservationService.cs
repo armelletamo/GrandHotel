@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GrandHotelNirvana
 {
-    public class Reservations : IReservation
+    public class ReservationService : IReservationService
     {
         GrandHotelContext grandhotel = new GrandHotelContext();
 
@@ -32,14 +32,14 @@ namespace GrandHotelNirvana
             alreadyDisposed = true;
         }
 
-        public List<TarifChambre> ListeDeChambre(Reservation reservation)
+        public List<ChambreVM> ListeDeChambre(Reservation reservation)
         {
-            DateTime d = DateTime.Now;
-
             IQueryable<Chambre> chambre;
-            List<Chambre> chambrereserve = new List<Chambre>();
+            IQueryable<Chambre> chambrereserve=null;
             List<Chambre> chambredispo = new List<Chambre>();
             List<TarifChambre> tarifchambre = new List<TarifChambre>();
+            List<ChambreVM> ChambreEtPrix = new List<ChambreVM>();
+
             try
             {
                 chambre = grandhotel.Chambre.Where(x => x.NbLits == reservation.NbPersonnes);
@@ -49,36 +49,58 @@ namespace GrandHotelNirvana
                         .Include(x => x.NumChambreNavigation)
                         .Where(x => x.Jour == reservation.Jour)
                         .Select(x => x.NumChambreNavigation)
-                        .Where(x => x.NbLits == reservation.NbPersonnes).ToList();
+                        .Where(x => x.NbLits == reservation.NbPersonnes);
                 }
-                chambredispo = chambre.Except(chambrereserve).ToList();               
+                if(chambrereserve!=null)
+                    chambredispo = chambre.Except(chambrereserve).ToList(); 
+                else
+                    chambredispo = chambre.ToList();
 
-                 var Tarifchambre = from c in chambredispo
+                var Tarifchambre = from c in chambredispo
                                    join tf in grandhotel.TarifChambre on c.Numero equals tf.NumChambre
                                    join t in grandhotel.Tarif on tf.CodeTarif equals t.Code
                                    where tf.CodeTarif.Contains(reservation.Jour.Year.ToString())
                                    select tf;
+
                 tarifchambre = Tarifchambre.ToList();
-
-
-
+                foreach(var chb in tarifchambre)
+                {
+                    ChambreVM c = new ChambreVM();
+                    c.Bain = chb.NumChambreNavigation.Bain;
+                    c.Douche= chb.NumChambreNavigation.Douche;
+                    c.Etage= chb.NumChambreNavigation.Etage;
+                    c.NbLits= chb.NumChambreNavigation.NbLits;
+                    c.Numero= chb.NumChambreNavigation.Numero;
+                    c.NumTel= chb.NumChambreNavigation.NumTel;
+                    c.Wc= chb.NumChambreNavigation.Wc;
+                    c.Prix= chb.CodeTarifNavigation.Prix;
+                    ChambreEtPrix.Add(c);
+                }
             }
             catch (Exception ex)
             {
 
             }
             
-            return tarifchambre;
+            return ChambreEtPrix;
 
         }
 
-        public Chambre DetailDeChambre(int numero)
+        public ChambreVM DetailDeChambre(int numero)
         {
-            Chambre chb = new Chambre();
+            ChambreVM chb = new ChambreVM();
             try
             {
+                Chambre chambre = new Chambre();
                 short num = (short)numero;
-                chb = grandhotel.Chambre.Where(x => x.Numero == num).FirstOrDefault();
+                chambre = grandhotel.Chambre.Where(x => x.Numero == num).FirstOrDefault();
+                chb.Numero = chambre.Numero;
+                chb.Bain = chambre.Bain;
+                chb.Douche = chambre.Douche;
+                chb.Etage = chambre.Etage;
+                chb.NbLits = chambre.NbLits;
+                chb.NumTel = chambre.NumTel;
+                chb.Wc = chambre.Wc;
             }
             catch (Exception ex)
             {

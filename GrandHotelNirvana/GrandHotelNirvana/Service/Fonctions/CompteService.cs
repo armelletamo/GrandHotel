@@ -8,7 +8,7 @@ using GrandHotelNirvana.Models;
 
 namespace GrandHotelNirvana
 {
-    public class Compte : ICompte
+    public class CompteService : ICompteService
     {
         GrandHotelContext grandhotel = new GrandHotelContext();
         Utilisateur newUser = new Utilisateur();
@@ -114,8 +114,6 @@ namespace GrandHotelNirvana
         public Utilisateur ObtenirUtilisateur(int id)
         {
             return grandhotel.Utilisateur.FirstOrDefault(u => u.Id == id);
-        }
-
-
+        }        
     }
 }

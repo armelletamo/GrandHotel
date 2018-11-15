@@ -14,13 +14,13 @@ namespace GrandHotelNirvana.Controllers
     [Route("api/Reservations")]
     public class ReservationsController : Controller
     {
-        Reservations reservations = new Reservations();
-        List<TarifChambre> ChambreLibre = new List<TarifChambre>();
-        Chambre chb = new Chambre();
+        ReservationService reservations = new ReservationService();
+        List<ChambreVM> ChambreLibre = new List<ChambreVM>();
+        ChambreVM chb = new ChambreVM();
 
         [Route("Available-Rooms")]
         [HttpGet]
-        public List<TarifChambre> ListOfRoom(Reservation reserv)
+        public List<ChambreVM> ListOfRoom(Reservation reserv)
         {
             if (ModelState.IsValid)
             {
@@ -32,7 +32,7 @@ namespace GrandHotelNirvana.Controllers
         // GET: api/Reservations/5
         [Route("Details-Chambre")]
         [HttpGet]
-        public Chambre DetailChambre(int numero)
+        public ChambreVM DetailChambre(int numero)
         {
             chb = reservations.DetailDeChambre(numero);
             return chb;
