@@ -27,5 +27,18 @@ namespace GrandHotelNirvana.Controllers
             return done;
         }
 
+        [Route("Modify-ClientAdress")]
+        [HttpPost]
+        public async Task<bool> AjouterClient([FromBody]Adresse adresse)
+        { 
+            bool done = false;
+
+            if (ModelState.IsValid)
+            {
+                done = await clientserv.ModifierAdresse(adresse);
+            }
+            return done;
+        }
+
     }
 }

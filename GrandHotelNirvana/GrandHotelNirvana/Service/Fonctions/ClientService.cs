@@ -66,9 +66,35 @@ namespace GrandHotelNirvana
             GC.SuppressFinalize(this);
         }
 
-        public Task<bool> ModifierAdresse(Adresse adresse)
+        public async Task<bool> ModifierAdresse(Adresse adresse)
         {
-            throw new NotImplementedException();
+            bool done = false;
+            int idclient = 0;
+            try
+            {
+                bool exist = grandhotel.Email.Any(x => x.Adresse == adresse.Email);
+                if (exist)
+                {
+                    idclient = grandhotel.Email
+                       .Where(x => x.Adresse == adresse.Email)
+                       .Select(x => x.IdClient).FirstOrDefault();
+                    var ancienneadresse = grandhotel.Adresse.Where(x => x.IdClient == idclient).FirstOrDefault();
+                    ancienneadresse.IdClient = idclient;
+                    ancienneadresse.Rue = adresse.Rue;
+                    ancienneadresse.Ville = adresse.Ville;
+                    ancienneadresse.Complement = adresse.Complement;
+                    ancienneadresse.CodePostal = adresse.CodePostal;
+                     grandhotel.Adresse.Update(ancienneadresse);
+                    await  grandhotel.SaveChangesAsync();
+                    done = true;
+    
+            }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return done;
         }
 
         protected virtual void Dispose(bool isDisposing)
