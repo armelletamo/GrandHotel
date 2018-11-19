@@ -31,18 +31,15 @@ namespace GrandHotelNirvana
                         clt.CarteFidelite = client.CarteFidelite;
                         clt.Societe = client.Societe;
                         clt.UtilisateurId = id;
-                       
                         Adresse adresse = new Adresse();
                         adresse.Rue = client.Rue;
                         adresse.Complement = client.Complement;
                         adresse.CodePostal = client.CodePostal;
                         adresse.Ville = client.Ville;
                         clt.Adresse = adresse;
-                        Telephone tel = new Telephone();
-                        tel.Numero = client.NumeroTel;
-                        tel.CodeType = client.CodeType;
-                        tel.Pro = client.TelPro;
-                        clt.Telephone.Add(tel);
+                        List<Telephone> tel = new List<Telephone>();
+                        tel = client.Telephone;
+                        clt.Telephone = tel;
                         Email mail = new Email();
                         mail.Adresse = client.EmailUtilisateur;
                         mail.Pro = client.EmailPro;
@@ -91,6 +88,31 @@ namespace GrandHotelNirvana
             }
             }
             catch(Exception ex)
+            {
+
+            }
+            return done;
+        }
+
+        public async Task<bool> ModifierTelephone(Telephone telephone)
+        {
+            bool done = false;
+            try
+            {
+                bool exist = grandhotel.Telephone.Any(x => x.Numero == telephone.AncienNumero);
+                if (exist)
+                {                   
+                    var anciennumero = grandhotel.Telephone.Where(x => x.Numero == telephone.AncienNumero).FirstOrDefault();
+                    anciennumero.Numero = telephone.Numero;
+                    anciennumero.Pro = telephone.Pro;
+                    anciennumero.CodeType = telephone.CodeType;
+                    grandhotel.Telephone.Update(anciennumero);
+                    await grandhotel.SaveChangesAsync();
+                    done = true;
+
+                }
+            }
+            catch (Exception ex)
             {
 
             }

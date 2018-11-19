@@ -29,13 +29,26 @@ namespace GrandHotelNirvana.Controllers
 
         [Route("Modify-ClientAdress")]
         [HttpPost]
-        public async Task<bool> AjouterClient([FromBody]Adresse adresse)
+        public async Task<bool> ModifierAdresse([FromBody]Adresse adresse)
         { 
             bool done = false;
 
             if (ModelState.IsValid)
             {
                 done = await clientserv.ModifierAdresse(adresse);
+            }
+            return done;
+        }
+
+        [Route("Modify-PhoneNumber")]
+        [HttpPost]
+        public async Task<bool> ModifierNumerotel([FromBody]Telephone telephone)
+        {
+            bool done = false;
+
+            if (ModelState.IsValid)
+            {
+                done = await clientserv.ModifierTelephone(telephone);
             }
             return done;
         }

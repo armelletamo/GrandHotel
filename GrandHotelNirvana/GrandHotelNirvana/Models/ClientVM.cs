@@ -16,8 +16,6 @@ namespace GrandHotelNirvana.Models
         public string Complement { get; set; }
         public string CodePostal { get; set; }
         public string Ville { get; set; }
-        public bool TelPro { get; set; }
-        public string CodeType { get; set; }
-        public string NumeroTel { get; set; }
+        public List<Telephone>Telephone { get; set; }     
     }
 }

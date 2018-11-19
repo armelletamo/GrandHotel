@@ -8,9 +8,12 @@ namespace GrandHotelNirvana
 {
     public interface IClientService : IDisposable
     {
-         Task<bool> AjouterClient(ClientVM client);
+        Task<bool> AjouterClient(ClientVM client);
 
         Task<bool> ModifierAdresse(Adresse adresse);
+
+        Task<bool> ModifierTelephone(Telephone telephone);
+
 
     }
 }

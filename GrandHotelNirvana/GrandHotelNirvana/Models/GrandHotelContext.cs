@@ -262,18 +262,16 @@ namespace GrandHotelNirvana.Models
 
             modelBuilder.Entity<Telephone>(entity =>
             {
-                entity.HasKey(e => e.Numero);
-
                 entity.HasIndex(e => e.IdClient);
-
-                entity.Property(e => e.Numero)
-                    .HasMaxLength(12)
-                    .IsUnicode(false)
-                    .ValueGeneratedNever();
 
                 entity.Property(e => e.CodeType)
                     .IsRequired()
                     .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Numero)
+                    .IsRequired()
+                    .HasMaxLength(12)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdClientNavigation)
