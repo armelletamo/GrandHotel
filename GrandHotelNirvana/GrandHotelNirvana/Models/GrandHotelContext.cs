@@ -16,7 +16,6 @@ namespace GrandHotelNirvana.Models
         }
 
         public virtual DbSet<Adresse> Adresse { get; set; }
-        public virtual DbSet<Calendrier> Calendrier { get; set; }
         public virtual DbSet<Chambre> Chambre { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Email> Email { get; set; }
@@ -34,7 +33,6 @@ namespace GrandHotelNirvana.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GrandHotel;Trusted_Connection=True;");
             }
         }
@@ -67,13 +65,6 @@ namespace GrandHotelNirvana.Models
                     .HasForeignKey<Adresse>(d => d.IdClient)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Adresse_Client");
-            });
-
-            modelBuilder.Entity<Calendrier>(entity =>
-            {
-                entity.HasKey(e => e.Jour);
-
-                entity.Property(e => e.Jour).HasColumnType("date");
             });
 
             modelBuilder.Entity<Chambre>(entity =>
@@ -188,28 +179,20 @@ namespace GrandHotelNirvana.Models
 
             modelBuilder.Entity<Reservation>(entity =>
             {
-                entity.HasKey(e => new { e.NumChambre, e.Jour });
-
                 entity.HasIndex(e => e.IdClient)
                     .HasName("IDX_ReservationClient_FK");
 
                 entity.HasIndex(e => e.Jour);
 
-                entity.Property(e => e.Jour).HasColumnType("date");
-
                 entity.Property(e => e.HeureArrivee).HasDefaultValueSql("((17))");
+
+                entity.Property(e => e.Jour).HasColumnType("date");
 
                 entity.HasOne(d => d.IdClientNavigation)
                     .WithMany(p => p.Reservation)
                     .HasForeignKey(d => d.IdClient)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Reservation_Client");
-
-                entity.HasOne(d => d.JourNavigation)
-                    .WithMany(p => p.Reservation)
-                    .HasForeignKey(d => d.Jour)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Reservation_Calendrier");
 
                 entity.HasOne(d => d.NumChambreNavigation)
                     .WithMany(p => p.Reservation)

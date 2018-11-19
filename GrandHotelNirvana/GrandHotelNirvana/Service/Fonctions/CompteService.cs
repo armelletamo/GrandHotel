@@ -24,9 +24,10 @@ namespace GrandHotelNirvana
                 bool exist = grandhotel.Utilisateur.Any(x => x.Email == user.Email);
                 if (!exist)
                 {
+                    string hotel = user.Email.ToUpper();
 
                     string motDePasseEncode = EncodeMD5(user.MotDePasse);
-                    if (!user.Email.Contains("grandhotel"))
+                    if (!hotel.Contains("grandhotel".ToUpper()))
                         roleid = grandhotel.Role.Where(x => x.Nom == "client").Select(x => x.Id).FirstOrDefault();
                     else
                         roleid = grandhotel.Role.Where(x => x.Nom == "administrateur").Select(x => x.Id).FirstOrDefault();

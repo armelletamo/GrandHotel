@@ -54,6 +54,8 @@ namespace GrandHotelNirvana
             {
 
             }
+
+           await MiseAJourUtilisateur(client.EmailUtilisateur, clt.Id);
             return save;
         }
 
@@ -61,6 +63,24 @@ namespace GrandHotelNirvana
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }        
+
+        public async Task<bool> MiseAJourUtilisateur(string email, int id)
+        {
+            bool done = false;
+            try
+            {
+                var utilisateur = grandhotel.Utilisateur.Where(x => x.Email == email).FirstOrDefault();
+                utilisateur.ClientId = id;
+                grandhotel.Utilisateur.Update(utilisateur);
+                await grandhotel.SaveChangesAsync();
+                done = true;
+            }
+           catch(Exception ex)
+            {
+
+            }
+            return done;
         }
 
         public async Task<bool> ModifierAdresse(Adresse adresse)

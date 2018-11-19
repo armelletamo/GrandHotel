@@ -12,9 +12,9 @@ namespace GrandHotelNirvana.Models
         public byte HeureArrivee { get; set; }
         public bool? Travail { get; set; }
         public bool? PetitDejeuner { get; set; }
+        public int Id { get; set; }
 
         public Client IdClientNavigation { get; set; }
-        public Calendrier JourNavigation { get; set; }
         public Chambre NumChambreNavigation { get; set; }
     }
 }
