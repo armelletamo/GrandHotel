@@ -53,5 +53,17 @@ namespace GrandHotelNirvana.Controllers
             return done;
         }
 
+        [Route("Delete-PhoneNumber")]
+        [HttpPost]
+        public bool SupprimerTelephone(string telephone)
+        {
+            bool done = false;
+
+            if (ModelState.IsValid)
+            {
+                done =  clientserv.SupprimerTelephhone(telephone);
+            }
+            return done;
+        }
     }
 }

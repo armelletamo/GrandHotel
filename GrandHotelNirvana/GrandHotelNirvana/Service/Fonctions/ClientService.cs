@@ -22,7 +22,7 @@ namespace GrandHotelNirvana
                 if (exist)
                 {
                     bool emailexist = grandhotel.Email.Any(x => x.Adresse == client.EmailUtilisateur);
-                    int id=grandhotel.Utilisateur
+                    int id = grandhotel.Utilisateur
                         .Where(x => x.Email == client.EmailUtilisateur)
                         .Select(x => x.Id)
                         .FirstOrDefault();
@@ -47,15 +47,15 @@ namespace GrandHotelNirvana
                         grandhotel.Client.Add(clt);
                         await grandhotel.SaveChangesAsync();
                         save = true;
-                    }                  
-                }               
+                    }
+                }
             }
             catch (Exception ex)
             {
 
             }
 
-           await MiseAJourUtilisateur(client.EmailUtilisateur, clt.Id);
+            await MiseAJourUtilisateur(client.EmailUtilisateur, clt.Id);
             return save;
         }
 
@@ -63,7 +63,7 @@ namespace GrandHotelNirvana
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }        
+        }
 
         public async Task<bool> MiseAJourUtilisateur(string email, int id)
         {
@@ -76,7 +76,7 @@ namespace GrandHotelNirvana
                 await grandhotel.SaveChangesAsync();
                 done = true;
             }
-           catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -101,13 +101,13 @@ namespace GrandHotelNirvana
                     ancienneadresse.Ville = adresse.Ville;
                     ancienneadresse.Complement = adresse.Complement;
                     ancienneadresse.CodePostal = adresse.CodePostal;
-                     grandhotel.Adresse.Update(ancienneadresse);
-                    await  grandhotel.SaveChangesAsync();
+                    grandhotel.Adresse.Update(ancienneadresse);
+                    await grandhotel.SaveChangesAsync();
                     done = true;
-    
+
+                }
             }
-            }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -117,12 +117,16 @@ namespace GrandHotelNirvana
         public async Task<bool> ModifierTelephone(Telephone telephone)
         {
             bool done = false;
+            int idclient = 0;
             try
             {
-                bool exist = grandhotel.Telephone.Any(x => x.Numero == telephone.AncienNumero);
+                bool exist = grandhotel.Email.Any(x => x.Adresse == telephone.Email);
                 if (exist)
-                {                   
-                    var anciennumero = grandhotel.Telephone.Where(x => x.Numero == telephone.AncienNumero).FirstOrDefault();
+                {
+                    idclient = grandhotel.Email
+                       .Where(x => x.Adresse == telephone.Email)
+                       .Select(x => x.IdClient).FirstOrDefault();
+                    var anciennumero = grandhotel.Telephone.Where(x => x.Numero == telephone.AncienNumero && x.IdClient == idclient).FirstOrDefault();
                     anciennumero.Numero = telephone.Numero;
                     anciennumero.Pro = telephone.Pro;
                     anciennumero.CodeType = telephone.CodeType;
@@ -131,6 +135,25 @@ namespace GrandHotelNirvana
                     done = true;
 
                 }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return done;
+        }
+
+        public bool SupprimerTelephhone(string telephone)
+        {
+            bool done = false;
+            try
+            {
+
+                var Telephone =  grandhotel.Telephone.Where(x => x.Numero == telephone).FirstOrDefault();
+                grandhotel.Telephone.Remove(Telephone);
+                grandhotel.SaveChanges();
+                done = true;
+                     
             }
             catch (Exception ex)
             {
@@ -151,5 +174,6 @@ namespace GrandHotelNirvana
             alreadyDisposed = true;
         }
 
+        
     }
 }

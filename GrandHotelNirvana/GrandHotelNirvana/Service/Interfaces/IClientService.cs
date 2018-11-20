@@ -16,6 +16,7 @@ namespace GrandHotelNirvana
 
         Task<bool> MiseAJourUtilisateur(string email, int id);
 
+        bool SupprimerTelephhone(string telephone);
 
 
     }
